@@ -20,7 +20,11 @@ const getPathAndFilename = (req: Request) => {
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      `http://localhost:${process.env.PORT}`,
+      "https://terminal-simulation.up.railway.app",
+    ],
   })
 );
 

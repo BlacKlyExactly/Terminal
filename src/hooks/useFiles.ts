@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { File } from "@prisma/client";
 
-const destination = `http://localhost:${process.env.PORT || 1111}`;
-
 export const fetchFiles = async (path = "/") => {
   const request = await fetch(
-    `${destination}/files${path.startsWith("/") ? path : `/${path}`}`
+    `/files${path.startsWith("/") ? path : `/${path}`}`
   );
 
   return (await request.json()) as File[];
@@ -13,15 +11,17 @@ export const fetchFiles = async (path = "/") => {
 
 export const fileExist = async (path = "/") => {
   const request = await fetch(
-    `${destination}/file-exist${path.startsWith("/") ? path : `/${path}`}`
+    `/file-exist${path.startsWith("/") ? path : `/${path}`}`
   );
 
   return (await request.json()) as File;
 };
 
 export const directoryExist = async (path = "/") => {
+  console.log(process.env.PORT);
+
   const request = await fetch(
-    `${destination}/directory-exist${path.startsWith("/") ? path : `/${path}`}`
+    `/directory-exist${path.startsWith("/") ? path : `/${path}`}`
   );
 
   return (await request.json()) as File;
@@ -29,7 +29,7 @@ export const directoryExist = async (path = "/") => {
 
 export const createFile = async (path = "/") => {
   const request = await fetch(
-    `${destination}/create-file${path.startsWith("/") ? path : `/${path}`}`,
+    `/create-file${path.startsWith("/") ? path : `/${path}`}`,
     { method: "POST" }
   );
 
@@ -38,9 +38,7 @@ export const createFile = async (path = "/") => {
 
 export const createDirectory = async (path = "/") => {
   const request = await fetch(
-    `${destination}/create-directory${
-      path.startsWith("/") ? path : `/${path}`
-    }`,
+    `/create-directory${path.startsWith("/") ? path : `/${path}`}`,
     { method: "POST" }
   );
 
@@ -49,7 +47,7 @@ export const createDirectory = async (path = "/") => {
 
 export const removeFile = async (path = "/") => {
   const request = await fetch(
-    `${destination}/remove-file${path.startsWith("/") ? path : `/${path}`}`,
+    `/remove-file${path.startsWith("/") ? path : `/${path}`}`,
     { method: "DELETE" }
   );
 
@@ -58,9 +56,7 @@ export const removeFile = async (path = "/") => {
 
 export const removeDirectory = async (path = "/") => {
   const request = await fetch(
-    `${destination}/remove-directory${
-      path.startsWith("/") ? path : `/${path}`
-    }`,
+    `/remove-directory${path.startsWith("/") ? path : `/${path}`}`,
     { method: "DELETE" }
   );
 
@@ -69,7 +65,7 @@ export const removeDirectory = async (path = "/") => {
 
 export const modifyFile = async (path = "/", content: string = "") => {
   const request = await fetch(
-    `${destination}/modify-file${path.startsWith("/") ? path : `/${path}`}`,
+    `/modify-file${path.startsWith("/") ? path : `/${path}`}`,
     {
       headers: {
         Accept: "application/json",
