@@ -1,6 +1,6 @@
 # Terminal
 
-## Web based terminal simulation that emitates some basic bash commands (and little more).
+## Web-based terminal simulation that imitates some basic bash commands (and a little more).
 
 ![image](https://cdn.discordapp.com/attachments/747723783544242299/1086613016310722620/Opera_Zrzut_ekranu_2023-03-18_123149_localhost.png)
 
