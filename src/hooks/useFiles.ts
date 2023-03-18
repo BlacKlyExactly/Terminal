@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { File } from "@prisma/client";
 
+const destination = `http://localhost:${process.env.PORT || 1111}`;
+
 export const fetchFiles = async (path = "/") => {
   const request = await fetch(
-    `http://localhost:1111/files${path.startsWith("/") ? path : `/${path}`}`
+    `${destination}/files${path.startsWith("/") ? path : `/${path}`}`
   );
 
   return (await request.json()) as File[];
@@ -11,9 +13,7 @@ export const fetchFiles = async (path = "/") => {
 
 export const fileExist = async (path = "/") => {
   const request = await fetch(
-    `http://localhost:1111/file-exist${
-      path.startsWith("/") ? path : `/${path}`
-    }`
+    `${destination}/file-exist${path.startsWith("/") ? path : `/${path}`}`
   );
 
   return (await request.json()) as File;
@@ -21,9 +21,7 @@ export const fileExist = async (path = "/") => {
 
 export const directoryExist = async (path = "/") => {
   const request = await fetch(
-    `http://localhost:1111/directory-exist${
-      path.startsWith("/") ? path : `/${path}`
-    }`
+    `${destination}/directory-exist${path.startsWith("/") ? path : `/${path}`}`
   );
 
   return (await request.json()) as File;
@@ -31,9 +29,7 @@ export const directoryExist = async (path = "/") => {
 
 export const createFile = async (path = "/") => {
   const request = await fetch(
-    `http://localhost:1111/create-file${
-      path.startsWith("/") ? path : `/${path}`
-    }`,
+    `${destination}/create-file${path.startsWith("/") ? path : `/${path}`}`,
     { method: "POST" }
   );
 
@@ -42,7 +38,7 @@ export const createFile = async (path = "/") => {
 
 export const createDirectory = async (path = "/") => {
   const request = await fetch(
-    `http://localhost:1111/create-directory${
+    `${destination}/create-directory${
       path.startsWith("/") ? path : `/${path}`
     }`,
     { method: "POST" }
@@ -53,9 +49,7 @@ export const createDirectory = async (path = "/") => {
 
 export const removeFile = async (path = "/") => {
   const request = await fetch(
-    `http://localhost:1111/remove-file${
-      path.startsWith("/") ? path : `/${path}`
-    }`,
+    `${destination}/remove-file${path.startsWith("/") ? path : `/${path}`}`,
     { method: "DELETE" }
   );
 
@@ -64,7 +58,7 @@ export const removeFile = async (path = "/") => {
 
 export const removeDirectory = async (path = "/") => {
   const request = await fetch(
-    `http://localhost:1111/remove-directory${
+    `${destination}/remove-directory${
       path.startsWith("/") ? path : `/${path}`
     }`,
     { method: "DELETE" }
@@ -75,9 +69,7 @@ export const removeDirectory = async (path = "/") => {
 
 export const modifyFile = async (path = "/", content: string = "") => {
   const request = await fetch(
-    `http://localhost:1111/modify-file${
-      path.startsWith("/") ? path : `/${path}`
-    }`,
+    `${destination}/modify-file${path.startsWith("/") ? path : `/${path}`}`,
     {
       headers: {
         Accept: "application/json",
