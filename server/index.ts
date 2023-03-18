@@ -30,6 +30,8 @@ app.listen(port, () => {
   console.log(`Backend > listening on port: ${port}`);
 });
 
+app.use("/", express.static("dist"));
+
 app.get("/files/*", async (req, res) => {
   const path = Object.values(req.params)[0] as string;
 
