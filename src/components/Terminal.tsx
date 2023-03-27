@@ -10,6 +10,7 @@ import React, {
 import { File } from "@prisma/client";
 import useFiles from "../hooks/useFiles";
 import commands from "../commands";
+import Login, { LoginContext } from "./Login";
 
 export type CommandRow = {
   user: string;
@@ -48,6 +49,7 @@ const Terminal = () => {
   const [currLocation, setCurrLocation] = useState("/");
 
   const { files, refetchFiles } = useFiles(currLocation);
+  const { isLoged, user } = useContext(LoginContext);
 
   const rows = useRef<HTMLDivElement>(null);
 
@@ -61,7 +63,7 @@ const Terminal = () => {
 
       const inputs = rows.current.querySelectorAll("textarea");
       const lastInput = inputs[inputs.length - 1];
-      lastInput.focus();
+      lastInput?.focus();
     };
 
     window.addEventListener("click", handleWindowClick);
@@ -111,9 +113,9 @@ const Terminal = () => {
     <div className="w-screen h-screen relative bg-main">
       <div className="w-full h-16 px-6 grid grid-cols-3 border-b border-[#d64196] items-center bg-[#141138] bg-opacity-50 border-opacity-40">
         <div className="flex gap-3">
-          <button className="w-4 h-4 rounded-full bg-[#ff5654]"></button>
-          <button className="w-4 h-4 rounded-full bg-[#ffbd2c]"></button>
-          <button className="w-4 h-4 rounded-full bg-[#23cc34]"></button>
+          <button className="w-4 h-4 rounded-full bg-[#ff5654]" />
+          <button className="w-4 h-4 rounded-full bg-[#ffbd2c]" />
+          <button className="w-4 h-4 rounded-full bg-[#23cc34]" />
         </div>
         <h1 className="text-[#0ef3ff] text-base font-[consolas] place-self-center">
           Terminal
@@ -135,20 +137,27 @@ const Terminal = () => {
             currLocation,
           }}
         >
-          {cmdHistory.map((row) => (
-            <CmdRow key={row.executedAt} {...row} />
-          ))}
-          <CmdRow
-            user="user"
-            command={cmd || ""}
-            path={
-              currLocation.startsWith("/") ? currLocation : `/${currLocation}`
-            }
-            active
-            executedAt={new Date().getTime()}
-            onKeyDown={handleKeyDown}
-            onChange={handleCommandType}
-          />
+          <Login />
+          {isLoged && (
+            <>
+              {cmdHistory.map((row) => (
+                <CmdRow key={row.executedAt} {...row} />
+              ))}
+              <CmdRow
+                user={user?.username || ""}
+                command={cmd || ""}
+                path={
+                  currLocation.startsWith("/")
+                    ? currLocation
+                    : `/${currLocation}`
+                }
+                active
+                executedAt={new Date().getTime()}
+                onKeyDown={handleKeyDown}
+                onChange={handleCommandType}
+              />
+            </>
+          )}
         </TerminalContext.Provider>
       </div>
     </div>
@@ -177,6 +186,10 @@ const CmdRow = ({
     currLocation,
     cmd,
   } = useContext(TerminalContext);
+
+  const { logout, user: userData } = useContext(LoginContext);
+
+  if (!userData) return null;
 
   const addCmdToHistory = (response: string) => {
     setCmdHistory([
@@ -214,10 +227,12 @@ const CmdRow = ({
       setCmdHistory,
       setCurrLocation,
       refetchFiles,
+      logout,
       cmdHistory,
       args: cmd.split(" ").slice(1),
       files,
       currLocation,
+      user: userData,
     });
 
     addToHistory && addCmdToHistory(response);

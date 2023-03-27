@@ -17,3 +17,10 @@ model File {
   isDirectory Boolean
   content     String?
 }
+
+model User {
+  id       String  @id @default(cuid())
+  username String
+  password String
+  isAdmin  Boolean @default(false)
+}

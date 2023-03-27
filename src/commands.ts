@@ -1,4 +1,4 @@
-import { File } from "@prisma/client";
+import { File, User } from "@prisma/client";
 import { Dispatch, SetStateAction } from "react";
 import { CommandRow } from "./components/Terminal";
 import {
@@ -9,6 +9,7 @@ import {
   modifyFile,
   removeDirectory,
   removeFile,
+  fetchFiles,
 } from "./hooks/useFiles";
 
 type Command = {
@@ -17,10 +18,12 @@ type Command = {
     setCmdHistory: Dispatch<SetStateAction<CommandRow[]>>;
     setCurrLocation: Dispatch<SetStateAction<string>>;
     refetchFiles: (path?: string) => Promise<void>;
+    logout: () => void;
     cmdHistory: CommandRow[];
-    args: string[];
-    files?: File[];
     currLocation: string;
+    args: string[];
+    user: User;
+    files?: File[];
   }) => Promise<{ response: string; addToHistory: boolean }>;
 };
 
@@ -80,11 +83,16 @@ const commands: Command[] = [
   },
   {
     name: "ls",
-    action: async ({ files }) => {
-      const fileNames = files?.map(({ name }) => name);
-      if (!fileNames) return { response: "", addToHistory: true };
+    action: async ({ args, currLocation }) => {
+      const [path] = args;
+      const formatedPath = getPath(path || currLocation, currLocation);
 
-      return { response: fileNames.join("<br>"), addToHistory: true };
+      console.log(formatedPath);
+
+      const fetchedFiles = await fetchFiles(formatedPath);
+      const fileNames = fetchedFiles.map(({ name }) => name);
+
+      return { response: fileNames?.join("<br>"), addToHistory: true };
     },
   },
   {
@@ -276,6 +284,15 @@ const commands: Command[] = [
       await modifyFile(formatedPath, content.join(" "));
 
       return { response: "", addToHistory: true };
+    },
+  },
+  {
+    name: "logout",
+    action: async ({ setCmdHistory, logout }) => {
+      setCmdHistory([]);
+      logout();
+
+      return { response: "", addToHistory: false };
     },
   },
 ];
