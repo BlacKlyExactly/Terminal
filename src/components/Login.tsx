@@ -142,7 +142,7 @@ const LoginRow = ({
     <label>
       {props.label}:
       <input
-        className="bg-main ml-2 outline-none text-response"
+        className="ml-2 bg-main text-response outline-none"
         onKeyDown={(e) => onKeyDown && onKeyDown(e, { ...props, executedAt })}
         autoFocus
         {...props}

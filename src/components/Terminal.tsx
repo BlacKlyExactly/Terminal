@@ -110,19 +110,19 @@ const Terminal = () => {
   };
 
   return (
-    <div className="w-screen h-screen relative bg-main">
-      <header className="w-full h-16 px-6 grid grid-cols-3 border-b border-header-border items-center bg-header bg-opacity-50 border-opacity-40">
+    <div className="relative h-screen w-screen bg-main">
+      <header className="grid h-16 w-full grid-cols-3 items-center border-b border-header-border border-opacity-40 bg-header bg-opacity-50 px-6">
         <div className="flex gap-3">
-          <button className="w-4 h-4 rounded-full bg-[#ff5654]" />
-          <button className="w-4 h-4 rounded-full bg-[#ffbd2c]" />
-          <button className="w-4 h-4 rounded-full bg-[#23cc34]" />
+          <button className="h-4 w-4 rounded-full  bg-[#ff5654] " />
+          <button className="h-4 w-4 rounded-full bg-[#ffbd2c]" />
+          <button className="h-4 w-4 rounded-full bg-[#23cc34]" />
         </div>
-        <h1 className="text-light text-base font-[consolas] place-self-center">
+        <h1 className="place-self-center font-[consolas] text-base text-light">
           Terminal
         </h1>
       </header>
       <div
-        className="px-6 py-8 text-xl text-light font-semibold font-[consolas] overflow-y-auto overflow-x-hidden h-[calc(100vh-4rem)] relative"
+        className="relative h-[calc(100vh-4rem)] overflow-y-auto overflow-x-hidden px-6 py-8 font-[consolas] text-xl font-semibold text-light"
         ref={rows}
       >
         <TerminalContext.Provider
@@ -240,24 +240,24 @@ const CmdRow = ({
 
   return (
     <>
-      <div className="flex gap-3 h-7">
+      <div className="flex h-7 gap-3">
         <div className="flex">
-          <div className="flex relative">
-            <p className="bg-user px-4 whitespace-nowrap h-fit">
+          <div className="relative flex">
+            <p className="h-fit whitespace-nowrap bg-user px-4">
               {user}@
               {`${user.charAt(0).toUpperCase()}${user.slice(1, user.length)}`}
             </p>
-            <div className="triangle-right !border-l-user absolute left-full" />
+            <div className="triangle-right absolute left-full !border-l-user" />
           </div>
           <div className="flex">
-            <p className="bg-path pl-6 pr-2 text-main whitespace-nowrap h-fit">
+            <p className="h-fit whitespace-nowrap bg-path pl-6 pr-2 text-main">
               {path}
             </p>
             <div className="triangle-right !border-l-path" />
           </div>
         </div>
         <textarea
-          className={`bg-transparent outline-none caret-slate-300 w-full overflow-hidden resize-none ${
+          className={`w-full resize-none overflow-hidden bg-transparent caret-slate-300 outline-none ${
             active ? "h-fit" : ""
           }`}
           autoFocus={active}
@@ -269,7 +269,7 @@ const CmdRow = ({
       </div>
       {response && (
         <div
-          className="text-response whitespace-pre-wrap"
+          className="whitespace-pre-wrap text-response"
           dangerouslySetInnerHTML={{ __html: response }}
         />
       )}

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.triangle-right{
+.triangle-right {
   width: 0;
   height: 0;
   border-top: 14px solid transparent;
