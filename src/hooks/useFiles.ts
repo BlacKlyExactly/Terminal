@@ -29,7 +29,9 @@ export const directoryExist = (path = "/") =>
   authFetch<File>(`/api/directory-exist${formatPath(path)}`);
 
 export const createFile = (path = "/") =>
-  authFetch<object>(`/api/create-file${formatPath(path)}`);
+  authFetch<object>(`/api/create-file${formatPath(path)}`, {
+    method: "POST",
+  });
 
 export const createDirectory = (path = "/") =>
   authFetch<object>(`/api/create-directory${formatPath(path)}`, {

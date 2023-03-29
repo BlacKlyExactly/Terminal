@@ -9,6 +9,8 @@ const authFetch = async <T>(path: string, options?: RequestInit) => {
     },
   };
 
+  console.log(options);
+
   const req = await fetch(path, options);
   return (await req.json()) as T;
 };
