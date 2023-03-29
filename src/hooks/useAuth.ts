@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
+import authFetch from "../utils/authFetch";
 
 export type User = {
   isAdmin: boolean;
@@ -17,7 +18,7 @@ const useAuth = () => {
     if (!token) return;
 
     (async () => {
-      const request = await fetch("/auth", {
+      const user = await authFetch<User>("/auth", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -26,13 +27,12 @@ const useAuth = () => {
         method: "GET",
       });
 
-      const user = (await request.json()) as User;
       setUser(user);
     })();
   }, [token]);
 
   const login = async (username?: string, password?: string) => {
-    const request = await fetch("/auth/login", {
+    const user = await authFetch<User>("/auth/login", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -44,7 +44,6 @@ const useAuth = () => {
       }),
     });
 
-    const user = (await request.json()) as User;
     setCookie("token", user.token);
     setUser(user);
   };
