@@ -8,7 +8,7 @@
     "dev:frontend": "vite",
     "dev:backend": "nodemon --watch './server/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm' server/index.ts",
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "start": "ts-node-esm server/index.ts",
+    "start": "node --experimental-specifier-resolution=node --loader ts-node/esm server/index.ts",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
