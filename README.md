@@ -4,6 +4,12 @@
 
 ![image](https://cdn.discordapp.com/attachments/747723783544242299/1086613016310722620/Opera_Zrzut_ekranu_2023-03-18_123149_localhost.png)
 
+## Basic user credentials
+```
+username: user
+password:
+```
+
 ## Written with:
 
 - React
@@ -24,9 +30,10 @@
 - `mkdir <name>` - Creates directory with given name e.g. `mkdir home`
 - `rm <filename>` - Delete file with given name e.g. `rm test.txt`. Args: `-R`: remove directory with files in it instead of file
 - `write <file> <content>` - Overwrites a file with given content e.g. `write test.txt This is test message.`
+- `logout` - Logs out from user.
 
 ## To do:
 
 - More commands
-- User system
+- Finish user system
 - Sudo
