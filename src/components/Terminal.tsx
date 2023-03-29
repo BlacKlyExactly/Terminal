@@ -111,18 +111,18 @@ const Terminal = () => {
 
   return (
     <div className="w-screen h-screen relative bg-main">
-      <div className="w-full h-16 px-6 grid grid-cols-3 border-b border-[#d64196] items-center bg-[#141138] bg-opacity-50 border-opacity-40">
+      <header className="w-full h-16 px-6 grid grid-cols-3 border-b border-header-border items-center bg-header bg-opacity-50 border-opacity-40">
         <div className="flex gap-3">
           <button className="w-4 h-4 rounded-full bg-[#ff5654]" />
           <button className="w-4 h-4 rounded-full bg-[#ffbd2c]" />
           <button className="w-4 h-4 rounded-full bg-[#23cc34]" />
         </div>
-        <h1 className="text-[#0ef3ff] text-base font-[consolas] place-self-center">
+        <h1 className="text-light text-base font-[consolas] place-self-center">
           Terminal
         </h1>
-      </div>
+      </header>
       <div
-        className="px-6 py-8 text-xl text-[#0ef3ff] font-semibold font-[consolas] overflow-y-auto overflow-x-hidden h-[calc(100vh-4rem)] relative"
+        className="px-6 py-8 text-xl text-light font-semibold font-[consolas] overflow-y-auto overflow-x-hidden h-[calc(100vh-4rem)] relative"
         ref={rows}
       >
         <TerminalContext.Provider
@@ -243,17 +243,17 @@ const CmdRow = ({
       <div className="flex gap-3 h-7">
         <div className="flex">
           <div className="flex relative">
-            <p className="bg-[#06215a] px-4 whitespace-nowrap h-fit">
+            <p className="bg-user px-4 whitespace-nowrap h-fit">
               {user}@
               {`${user.charAt(0).toUpperCase()}${user.slice(1, user.length)}`}
             </p>
-            <div className="triangle-right !border-l-[#06215a] absolute left-full" />
+            <div className="triangle-right !border-l-user absolute left-full" />
           </div>
           <div className="flex">
-            <p className="bg-[#ffd44e] pl-6 pr-2 text-main whitespace-nowrap h-fit">
+            <p className="bg-path pl-6 pr-2 text-main whitespace-nowrap h-fit">
               {path}
             </p>
-            <div className="triangle-right !border-l-[#ffd44e]" />
+            <div className="triangle-right !border-l-path" />
           </div>
         </div>
         <textarea
@@ -269,7 +269,7 @@ const CmdRow = ({
       </div>
       {response && (
         <div
-          className="text-[#ff2e87] whitespace-pre-wrap"
+          className="text-response whitespace-pre-wrap"
           dangerouslySetInnerHTML={{ __html: response }}
         />
       )}
