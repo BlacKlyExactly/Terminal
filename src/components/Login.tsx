@@ -7,11 +7,7 @@ import React, {
 } from "react";
 import useAuth from "../hooks/useAuth";
 
-export const LoginContext = createContext<
-  {
-    isLoged: boolean;
-  } & ReturnType<typeof useAuth>
->({
+export const LoginContext = createContext<ReturnType<typeof useAuth>>({
   isLoged: false,
   login: async (username, password) => {},
   logout: () => {},
@@ -97,7 +93,7 @@ const Login = () => {
 
   const handleKeyDown = (
     e: React.KeyboardEvent,
-    { disabled, autoFocus, ...props }: LoginRowProps
+    { ...props }: LoginRowProps
   ) => {
     if (e.key !== "Enter") return;
 

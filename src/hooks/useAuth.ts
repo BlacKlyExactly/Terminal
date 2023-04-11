@@ -48,7 +48,7 @@ const useAuth = () => {
     setUser(user);
   };
 
-  const logout = () => removeCookie("token", undefined);
+  const logout = () => removeCookie("token");
 
   return {
     login,
